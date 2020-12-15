@@ -1,0 +1,170 @@
+
+
+
+create table customers(
+        customer_id varchar2(4) constraint customers_id_pk primary key,
+        name varchar2(20) constraint customers_name_nn not null,
+        credit_limit number(20) 
+);
+
+create table employees(
+        employee_id varchar2(5) constraint employees_id_pk primary key,
+        name varchar2(20) constraint employees_name_nn not null,
+        phone varchar2(15),
+        hire_date date constraint employees_hiredate_nn not null 
+);
+
+create  table orders(
+	order_id varchar2(4) constraint orders_id_pk primary key,
+	CUSTOMER_ID varchar2(4) constraint customers_fk references customers(customer_id),
+	EMPLOYEE_ID varchar2(5) constraint employees_fk references employees(employee_id),
+	ORDER_DATE date constraint orders_ORDER_DATE_nn not null	
+);
+
+
+insert into employees values('00000', '권오민',	'010-1234-1234', '81/01/01');
+insert into employees values('00001', '권희성',	'010-2341-2341', '91/03/02');
+insert into employees values('00002', '김민건',	'010-3412-3412', '82/05/03');
+insert into employees values('00003', '김성호',	'010-4123-4123', '81/01/04');
+insert into employees values('00004', '김연식',	'010-5678-5678', '86/07/05');
+insert into employees values('00005', '김재웅',	'010-6789-6789', '81/01/06');
+insert into employees values('00006', '김준형',	'010-7890-7890', '97/05/07');
+insert into employees values('00007', '김창훈',	'010-9876-9876', '99/12/08');
+insert into employees values('00008', '김혜경',	'010-3847-2838', '81/01/09');
+insert into employees values('00009', '김혜성',	'010-2758-3829', '94/04/10');
+insert into employees values('00010', '박다영',	'010-3854-2383', '81/02/12');
+insert into employees values('00011', '염아정',	'010-2838-2383', '95/03/12');
+insert into employees values('00012', '양호준',	'010-2384-3296', '92/11/13');
+insert into employees (employee_id, name, hire_date) values('00013', '김연지', '90/05/14');
+
+
+
+insert into customers values('AA01', '박민영',	'5000000');
+insert into customers values('AA02', '고은비',	'5000000');
+insert into customers values('AA03', '이민재',	'5000000');
+insert into customers values('AA04', '장문희',	'2000000');
+insert into customers values('AA05', '장종욱',	'3500000');
+insert into customers values('AA06', '장종욱',	'4000000');
+insert into customers values('AA07', '조윤혜',	'1900000');
+insert into customers values('AA08', '차왕현',	'3000000');
+insert into customers values('AA09', '최지수',	'1500000');
+insert into customers values('AA10', '최지원',	'3000000');
+insert into customers values('AA11', '현준',	'7000000');
+insert into customers values('AA12', '최태열',	'0');
+
+insert into orders values('A001', 'AA03', '00000', '20/10/22');
+insert into orders values('A002', 'AA10', '00011', '20/10/23');
+insert into orders values('A003', 'AA05', '00007', '20/10/23');
+insert into orders values('A004', 'AA06', '00005', '20/11/01');
+insert into orders values('A005', 'AA12', '00010', '20/11/02');
+insert into orders values('A006', 'AA13', '00005', '20/11/05');
+insert into orders values('A007', 'AA07', '00004', '20/11/08');
+insert into orders values('A008', 'AA04', '00003', '20/11/10');
+insert into orders values('A009', 'AA09', '00002', '20/11/11');
+insert into orders values('A010', 'AA08', '00000', '20/11/14');
+insert into orders values('A011', 'AA10', '00008', '20/11/17');
+insert into orders values('A012', 'AA11', '00011', '20/11/18');
+insert into orders values('A013', 'AA05', '00013', '20/11/18');
+insert into orders values('A014', 'AA04', '00012', '20/11/19');
+insert into orders values('A015', 'AA05', '00013', '20/11/20');
+insert into orders values('A016', 'AA01', '00006', '20/11/20');
+insert into orders values('A017', 'AA12', '00005', '20/11/23');
+insert into orders values('A018', 'AA03', '00004', '20/11/23');
+insert into orders values('A019', 'AA09', '00003', '20/11/24');
+insert into orders values('A020', 'AA07', '00001', '20/11/24');
+
+create table products(
+        PRODUCT_ID varchar2(4) constraint proudcts_pk primary key,
+        PRODUCT_NAME varchar2(20), 
+        LIST_PRICE number(20),
+        category_id number(2) constraint c_id_fk references products_categories(category_id)
+);
+create table products_categories(
+        category_id number(2) constraint c_id_pk primary key,
+        CATEGORY_NAME varchar2(10) constraint categories_name_nn not null 
+);
+
+
+create table inventories(
+        product_id varchar2(4) constraint p_id_fk references products(PRODUCT_ID),
+        warehouse_id varchar2(4),
+        QUANTITY number(10)
+);
+constraint warehouses_fk references warehouses(warehouse_id)
+insert into products values('P101',	'MACBOOK AIR', '3000000','10');
+insert into products values('P102',	'MACBOOK PRO', '2800000','10');
+insert into products values('P103',	'IMAC',	'2500000','10');
+insert into products values('P104',	'IMAC PRO',	2400000,'10');
+insert into products values('P105',	'MAC PRO',	2200000,'10');
+insert into products values('P106',	'MAC MINI',	2100000,'10');
+insert into products values('P111',	'IPAD PRO',	1500000,'11');
+insert into products values('P112',	'IPAD AIR',	1400000,'11');
+insert into products values('P113',	'IPAD',	'1300000','11');
+insert into products values('P114',	'IPAD MINI', '1200000','11');
+insert into products values('P121',	'IPHONE 12PRO',	'1400000','12');
+insert into products values('P122',	'IPHONE 12', '1300000','12');
+insert into products values('P123',	'IPHONE SE', '1200000','12');
+insert into products values('P124',	'IPHONE 11', '1000000','12');
+insert into products values('P125',	'IPHONE XR', '900000','12');
+insert into products values('P131',	'APPLE WATCH SERIES 6',	'500000','13');
+insert into products values('P132',	'APPLE WATCH SE','450000','13');
+insert into products values('P133',	'APPLE WATCH SERIES 3',	'400000','13');
+insert into products values('P134',	'APPLE WATCH HERMES', '1000000','13');
+insert into products values('P135',	'APPLE WATCH NIKE',	'800000','13');
+insert into products values('P136',	'APPLE WATCH STUDIO', '500000','13');
+insert into products values('P201',	'APPLE PENCIL',	'150000','20');
+insert into products values('P202',	'키보드', '150000','20');
+insert into products values('P203',	'AIRPODS', '300000','20');
+
+
+
+insert into products_categories values('10', 'MAC');
+insert into products_categories values('11', 'IPAD');
+insert into products_categories values('12', 'IPHONE');
+insert into products_categories values('13', 'WATCH');
+insert into products_categories values('20', 'ETC');
+
+
+insert into inventories  values('P101', 'w101', '500');
+insert into inventories  values('P102',	'w101','500');
+insert into inventories  values('P103',	'w101', '500');
+insert into inventories  values('P104',	'w101', '500');
+insert into inventories  values('P105',	'w101', '500');
+insert into inventories  values('P106',	'w101', '500');
+insert into inventories  values('P111',	'w111', '500');
+insert into inventories  values('P112',	'w112', '500');
+insert into inventories  values('P113',	'w113', '500');
+insert into inventories  values('P114',	'w114', '500');
+insert into inventories  values('P121',	'w116', '500');
+insert into inventories  values('P122',	'w117', '500');
+insert into inventories  values('P123',	'w118', '500');
+insert into inventories  values('P124',	'w119', '500');
+insert into inventories  values('P125',	'w120', '500');
+insert into inventories  values('P131',	'w121', '500');
+insert into inventories  values('P132',	'w122', '500');
+insert into inventories  values('P133',	'w123', '500');
+insert into inventories  values('P134',	'w133', '500');
+insert into inventories  values('P135',	'w133', '500');
+insert into inventories  values('P136',	'w133', '500');
+insert into inventories  values('P201',	'w133', '500');
+insert into inventories (product_id) values('P202');
+insert into inventories (product_id) values('P203');
+
+alter table products add(category_id number(2) constraint products_categories_fk references products_categories(category_id));
+alter table products_categories modify(category_id number(2) constraint category_id_pk primary key);
+
+update products set category_id = '10' where product_id = 'P101'
+
+select order_id, employee_id, hire_date from
+orders o, employees e 
+where o.employee_id = e.employee_id;
+
+
+create table order_items(
+        item_id varchar2(4) constraint items_id_pk primary key,
+        order_id varchar2(4) 
+        product_id varchar2(4) 
+        QUANTITY float
+        LIST_PRICE number(20)     
+        unit_price float
+);
